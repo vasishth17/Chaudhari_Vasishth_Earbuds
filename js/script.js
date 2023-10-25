@@ -1,91 +1,91 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Data array for hotspot annotations and descriptions
+(function () {
+    // Variables
+    const model = document.querySelector("#model");
+    const hotspots = document.querySelectorAll(".Hotspot");
     const hotspotData = [
         {
             slot: "hotspot-1",
             annotation: "Silicone Tips",
             description: "These are the comfortable silicone tips for the earbuds.",
-            img: "../ar_icon.png"
+            img: "../images/silicon tips.jpg"
         },
         {
             slot: "hotspot-3",
             annotation: "LED",
-            description: "Indicates battery and connection status."
+            description: "Indicates battery and connection status.",
+            img: "../images/led.jpeg"
         },
         {
             slot: "hotspot-4",
             annotation: "Charging Connectors",
-            description: "Metallic connectors used to charge the earbuds."
+            description: "Metallic connectors used to charge the earbuds.",
+            img: "../images/charging_connectors.jpeg"
         },
         {
             slot: "hotspot-5",
             annotation: "Touch Control",
-            description: "Sensitive touch area for controlling playback and calls."
+            description: "Sensitive touch area for controlling playback and calls.",
+            img: "../images/touch-controls.jpg"
         },
         {
             slot: "hotspot-6",
             annotation: "Active Noise Cancellation",
-            description: "Technology to reduce ambient noise for a clearer audio experience."
+            description: "Technology to reduce ambient noise for a clearer audio experience.",
+            img: "../images/active-noice-cancellation.webp"
         },
         {
             slot: "hotspot-7",
             annotation: "Battery",
-            description: "Powers the earbuds for several hours of playback."
+            description: "Powers the earbuds for several hours of playback.",
+            img: "../images/battery.jpeg"
         }
     ];
-
-    const model = document.querySelector("#model");
-    const hotspots = document.querySelectorAll(".Hotspot");
-
+    // Functions
     function modelLoaded() {
-        // Start auto-rotation when the model is loaded
-        model.setAttribute('auto-rotate', '');
-
         hotspots.forEach(hotspot => {
             const annotation = hotspot.querySelector('.HotspotAnnotation');
-
-            // Initialize GSAP state for opacity and position
             gsap.set(annotation, { autoAlpha: 0, y: 10 });
-
             hotspot.style.display = "block";
         });
     }
 
     function showInfo() {
-        // Pause auto-rotation
-        model.removeAttribute('auto-rotate');
-
         const annotation = this.querySelector('.HotspotAnnotation');
-        const hotspotInfo = hotspotData.find(hotspot => hotspot.slot === this.getAttribute("slot"));
+        const hotspotInfo = hotspotData.find(h => h.slot === this.getAttribute("slot"));
 
+        model.removeAttribute('auto-rotate');
         if (hotspotInfo) {
             annotation.querySelector('h2').textContent = hotspotInfo.annotation;
             annotation.querySelector('p').textContent = hotspotInfo.description;
-            // annotation.querySelector('img').src = hotspotInfo.image;
 
-            // GSAP animation for fade in and slight upward movement
+            // Set the image src if it exists in the data and hide it otherwise
+            const imageElement = annotation.querySelector('img');
+            if (hotspotInfo.img && imageElement) {
+                imageElement.src = hotspotInfo.img;
+                imageElement.style.display = "block";
+            } else {
+                imageElement.style.display = "none";
+            }
+
             gsap.to(annotation, { autoAlpha: 1, y: 0, duration: 0.5 });
         }
     }
 
     function hideInfo() {
-        // Resume auto-rotation
-        model.setAttribute('auto-rotate', '');
-
         const annotation = this.querySelector('.HotspotAnnotation');
-
-        // GSAP animation for fade out and slight downward movement
         gsap.to(annotation, { autoAlpha: 0, y: 10, duration: 0.5 });
-
         annotation.querySelector('h2').textContent = "";
         annotation.querySelector('p').textContent = "";
-        // annotation.querySelector('img').textContent = "";
+        annotation.querySelector('img').style.display = "none"; // hide the image on mouse out
+
+        model.setAttribute('auto-rotate', '');
     }
 
+    // Event Listeners
     model.addEventListener("load", modelLoaded);
 
-    hotspots.forEach(hotspot => {
+    hotspots.forEach(function (hotspot) {
         hotspot.addEventListener("mouseover", showInfo);
         hotspot.addEventListener("mouseout", hideInfo);
     });
-});
+})();

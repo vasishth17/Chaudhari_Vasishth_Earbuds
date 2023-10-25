@@ -186,3 +186,11 @@ model-viewer{
   width: 100%;
 
 }
+
+.HotspotAnnotation img {
+  width: 150px;  /* Adjust this to your desired width */
+  height: auto;  /* This will maintain the aspect ratio */
+  display: none; /* Keep this to ensure the image is hidden by default and shown only when necessary */
+  border-radius: 5px; /* Optional: to give rounded corners to the image */
+  margin-top: 10px; /* Optional: to give some spacing between the description and the image */
+}
