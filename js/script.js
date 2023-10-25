@@ -49,6 +49,7 @@
         });
     }
 
+
     function showInfo() {
         const annotation = this.querySelector('.HotspotAnnotation');
         const hotspotInfo = hotspotData.find(h => h.slot === this.getAttribute("slot"));
@@ -69,6 +70,31 @@
 
             gsap.to(annotation, { autoAlpha: 1, y: 0, duration: 0.5 });
         }
+
+
+
+        // Adjust position if the annotation is out of viewport
+        const rect = annotation.getBoundingClientRect();
+
+        // Check right boundary
+        if (rect.right > window.innerWidth) {
+            annotation.style.left = "auto";
+            annotation.style.right = "calc(100% + 1em)";
+            annotation.style.transformOrigin = "top right";
+        } else {
+            annotation.style.left = "calc(100% + 1em)";
+            annotation.style.right = "auto";
+            annotation.style.transformOrigin = "top left";
+        }
+
+        // Check bottom boundary
+        if (rect.bottom > window.innerHeight) {
+            annotation.style.top = "auto";
+            annotation.style.bottom = "10px";  // Adjust as necessary
+        } else {
+            annotation.style.top = "50%";
+            annotation.style.bottom = "auto";
+        }
     }
 
     function hideInfo() {
@@ -88,4 +114,6 @@
         hotspot.addEventListener("mouseover", showInfo);
         hotspot.addEventListener("mouseout", hideInfo);
     });
+
 })();
+
