@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const hotspots = document.querySelectorAll(".Hotspot");
 
     function modelLoaded() {
+        // Start auto-rotation when the model is loaded
+        model.setAttribute('auto-rotate', '');
+
         hotspots.forEach(hotspot => {
             const annotation = hotspot.querySelector('.HotspotAnnotation');
 
@@ -49,6 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showInfo() {
+        // Pause auto-rotation
+        model.removeAttribute('auto-rotate');
+
         const annotation = this.querySelector('.HotspotAnnotation');
         const hotspotInfo = hotspotData.find(hotspot => hotspot.slot === this.getAttribute("slot"));
 
@@ -63,6 +69,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function hideInfo() {
+        // Resume auto-rotation
+        model.setAttribute('auto-rotate', '');
+
         const annotation = this.querySelector('.HotspotAnnotation');
 
         // GSAP animation for fade out and slight downward movement
