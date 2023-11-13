@@ -1,6 +1,7 @@
 # 3D Model Viewer with Annotations
 
-![image](https://github.com/vasishth17/Chaudhari_Vasishth_Earbuds/assets/121986393/d510afda-e586-4a18-bfe8-767d94cee4d6)
+
+![earbuds-color](https://github.com/vasishth17/Chaudhari_Vasishth_Earbuds/assets/121986393/d6fc7254-3b11-4393-a615-63da4b34f68d)
 
 
 This project offers a seamless 3D model viewing experience integrated with interactive annotations. Users can navigate around a 3D model and engage with clickable hotspots to gain insights into specific model features, accompanied by descriptive texts and images.
